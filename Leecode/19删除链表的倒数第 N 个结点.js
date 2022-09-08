@@ -11,21 +11,23 @@
  * @return {ListNode}
  */
 var removeNthFromEnd = function (head, n) {
-  let ret = new ListNode(null, head);
-  let fastNode = ret;
-  let slowNode = ret;
-  while (n > 0 && fastNode != null) {
-    fastNode = fastNode.next;
+  // 创建一个虚拟头结点
+  let node = new ListNode(0, head);
+  let fast = node,
+    slow = node;
+  while (n > 0 && fast) {
+    fast = fast.next;
     n--;
   }
-  fastNode = fastNode.next;
-  while (fastNode) {
-    fastNode = fastNode.next;
-    slowNode = slowNode.next;
+  // 多走一步
+  fast = fast.next;
+  while (fast) {
+    fast = fast.next;
+    slow = slow.next;
   }
-  slowNode.next = slowNode.next.next;
-  return ret.next;
-
+  slow.next = slow.next.next;
+  return node.next;
+  //
   // let ret = new ListNode(null, head);
   // let fast = ret;
   // let slow = ret;
@@ -39,18 +41,4 @@ var removeNthFromEnd = function (head, n) {
   // }
   // slow.next = slow.next.next;
   // return ret.next;
-  // // let ret = new ListNode(null, head);
-  // // let fastNode = ret;
-  // // let slowNode = ret;
-  // // while (n-- && fastNode != null) {
-  // //   fastNode = fastNode.next;
-  // // }
-  // // fastNode = fastNode.next;
-  // // while (!fastNode) {
-  // //   fastNode = fastNode.next;
-  // //   slowNode = slowNode.next;
-  // // }
-  // // slowNode.next = slowNode.next.next;
-
-  // // return ret.next;
 };

@@ -12,10 +12,10 @@
  * @return {ListNode}
  */
 var getIntersectionNode = function (headA, headB) {
-  let lengthA = 0;
-  let lengthB = 0;
-  let temA = headA;
-  let temB = headB;
+  let lengthA = 0,
+    lengthB = 0;
+  let temA = headA,
+    temB = headB;
   while (temA != null) {
     temA = temA.next;
     lengthA++;
@@ -24,7 +24,8 @@ var getIntersectionNode = function (headA, headB) {
     temB = temB.next;
     lengthB++;
   }
-  let long, short;
+  let long = null,
+    short = null;
   if (lengthA > lengthB) {
     long = headA;
     short = headB;
@@ -33,15 +34,16 @@ var getIntersectionNode = function (headA, headB) {
     short = headA;
   }
   let gap = lengthA > lengthB ? lengthA - lengthB : lengthB - lengthA;
-  while (gap) {
+  while (gap > 0) {
     long = long.next;
     gap--;
   }
   while (long != null) {
-    if (long == short) return long;
-
-    long = long.next;
+    if (long == short) {
+      return long;
+    }
     short = short.next;
+    long = long.next;
   }
   return null;
 };
